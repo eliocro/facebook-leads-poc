@@ -42,14 +42,13 @@ module.exports = {
     let qs = request.query;
 
     let challenge  = qs['hub.challenge'];
-    let token = qs['hub.verify_token'];
+    let verifyToken = qs['hub.verify_token'];
 
-    if(token === 'abc123') {
-      reply(challenge);
+    if(verifyToken !== 'abc123') {
+      return reply(verifyToken || 'NOK');
     }
-    else {
-      reply(token || 'OK');
-    }
+    reply(challenge || 'NOK');
+
 
     let data = request.payload;
     if(!data || data.object !== 'page' || !data.entry) {
