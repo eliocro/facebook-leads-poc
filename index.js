@@ -32,7 +32,7 @@ server.route([
       if(token === 'abc123') {
         return reply(challenge);
       }
-      reply(qs);
+      reply(token);
     }
   }
 ]);
