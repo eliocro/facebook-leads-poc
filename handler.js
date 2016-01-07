@@ -1,5 +1,40 @@
 'use strict';
 
+const FB = require('fb');
+
+let token = process.env.TOKEN;
+if(!token) {
+  console.log('Env vars not set!');
+  process.exit(0);
+}
+
+
+FB.options({
+  appId: 1549858652004929
+});
+
+
+function getLeadInfo (id) {
+  FB.api(id,
+  {
+    access_token: token
+  },
+  function (res) {
+    if(res.error) {
+      return console.log(res.error);
+    }
+
+    let user = {};
+    for(let prop of res.field_data) {
+      user[prop.name] = prop.values[0];
+    }
+
+    console.log(user);
+  });
+}
+
+// getLeadInfo('763626497075796');
+
 
 module.exports = {
 
@@ -27,6 +62,8 @@ module.exports = {
     }
 
     var genid = change.value.leadgen_id;
-    console.log(genid);
+    process.nextTick(() => {
+      getLeadInfo(genid.toString());
+    });
   }
 };
