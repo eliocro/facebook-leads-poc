@@ -52,7 +52,7 @@ server.register([
           reply(token);
         }
 
-        console.log(request.payload);
+        console.log(JSON.stringify(request.payload));
       }
     }
   ]);
