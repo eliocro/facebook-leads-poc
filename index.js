@@ -21,7 +21,7 @@ server.route([
     }
   },
   {
-    method: 'GET',
+    method: '*',
     path: '/facebook',
     handler (request, reply) {
       let qs = request.query;
@@ -30,9 +30,13 @@ server.route([
       let token = qs['hub.verify_token'];
 
       if(token === 'abc123') {
-        return reply(challenge);
+        reply(challenge);
       }
-      reply(token);
+      else {
+        reply(token);
+      }
+
+      console.log(request.payload);
     }
   }
 ]);
