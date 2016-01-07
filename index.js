@@ -27,7 +27,7 @@ server.route([
       let qs = request.query;
 
       let challenge  = qs.hub_challenge;
-      let token = qs.verify_token;
+      let token = qs.hub_verify_token;
 
       if(token === 'abc123') {
         return reply(challenge);
