@@ -1,6 +1,8 @@
 'use strict';
 
+
 const Hapi = require('hapi');
+const handler = require('./handler');
 
 
 const server = new Hapi.Server();
@@ -10,6 +12,7 @@ server.connection({
     cors: true
   }
 });
+
 
 server.register([
   require('inert')
@@ -39,21 +42,7 @@ server.register([
     {
       method: '*',
       path: '/facebook',
-      handler (request, reply) {
-        let qs = request.query;
-
-        let challenge  = qs['hub.challenge'];
-        let token = qs['hub.verify_token'];
-
-        if(token === 'abc123') {
-          reply(challenge);
-        }
-        else {
-          reply(token);
-        }
-
-        console.log(JSON.stringify(request.payload));
-      }
+      handler: handler.lead
     }
   ]);
 
